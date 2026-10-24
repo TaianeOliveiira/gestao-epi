@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(titulo, conteudo, ativo)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:replace="${titulo}">Gestão de EPIs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .menu-lateral { width: 230px; flex-shrink: 0; }
+        .menu-lateral .nav-link { color: #ced4da; padding: .35rem .75rem; border-radius: .375rem; }
+        .menu-lateral .nav-link:hover { color: #fff; background: #343a40; }
+        .menu-lateral .nav-link.active { color: #fff; background: #0d6efd; }
+        .menu-lateral .secao { font-size: .72rem; letter-spacing: .06em; color: #6c757d; text-transform: uppercase; }
+    </style>
+</head>
+<body class="bg-light">
+<div class="d-flex min-vh-100">
+
+    <aside class="menu-lateral bg-dark text-white p-3 d-flex flex-column">
+        <span class="fs-5 fw-bold mb-4">Gestão de EPIs</span>
+
+        <div class="secao mb-1">Cadastros</div>
+        <nav class="nav flex-column mb-3">
+            <a class="nav-link" th:classappend="${ativo == 'colaboradores'} ? 'active'"
+               th:href="@{/colaboradores}">Colaboradores</a>
+            <a class="nav-link" th:classappend="${ativo == 'equipamentos'} ? 'active'"
+               th:href="@{/equipamentos}">Equipamentos</a>
+        </nav>
+
+        <div class="secao mb-1">Ações</div>
+        <nav class="nav flex-column mb-3">
+            <a class="nav-link" th:classappend="${ativo == 'emprestimos'} ? 'active'"
+               th:href="@{/emprestimos}">Controle de EPI</a>
+        </nav>
+
+        <div class="secao mb-1">Relatórios</div>
+        <nav class="nav flex-column mb-3">
+            <span class="nav-link disabled">Controle de EPI</span>
+        </nav>
+
+        <div class="mt-auto">
+            <button type="button" class="btn btn-outline-light w-100" disabled>Sair</button>
+        </div>
+    </aside>
+
+    <div class="flex-grow-1">
+        <header class="bg-white border-bottom px-4 py-2 d-flex justify-content-end align-items-center gap-2">
+            <div class="text-end lh-sm">
+                <div class="fw-semibold">Maria Souza</div>
+                <small class="text-muted">Técnica de Segurança do Trabalho</small>
+            </div>
+            <img th:src="@{/img/usuario.svg}" alt="Foto do usuário" class="rounded-circle" width="40" height="40">
+        </header>
+
+        <div class="p-4">
+            <div th:if="${sucesso}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${sucesso}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+            </div>
+            <div th:if="${erro}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span th:text="${erro}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+            </div>
+
+            <th:block th:replace="${conteudo}">conteúdo da página</th:block>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

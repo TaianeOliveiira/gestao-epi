@@ -10,4 +10,6 @@ public interface ColaboradorRepository extends JpaRepository<Colaborador, Long> 
     List<Colaborador> findByNomeContainingIgnoreCaseOrderByNomeAsc(String nome);
 
     List<Colaborador> findAllByOrderByNomeAsc();
+
+    List<Colaborador> findByAtivoTrueOrderByNomeAsc();
 }

@@ -1,0 +1,12 @@
+br/com/epi/model/EmprestimoForm.class
+br/com/epi/GestaoEpiApplication.class
+br/com/epi/repository/ColaboradorRepository.class
+br/com/epi/model/Colaborador.class
+br/com/epi/repository/EmprestimoRepository.class
+br/com/epi/repository/EpiRepository.class
+br/com/epi/controller/ColaboradorController.class
+br/com/epi/controller/EmprestimoController.class
+br/com/epi/model/Emprestimo.class
+br/com/epi/controller/EpiController.class
+br/com/epi/model/Epi.class
+br/com/epi/model/StatusEmprestimo.class

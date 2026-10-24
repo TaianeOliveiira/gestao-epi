@@ -1,0 +1,12 @@
+/workspaces/gestao-epi/src/main/java/br/com/epi/GestaoEpiApplication.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/controller/ColaboradorController.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/controller/EmprestimoController.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/controller/EpiController.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/model/Colaborador.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/model/Emprestimo.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/model/EmprestimoForm.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/model/Epi.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/model/StatusEmprestimo.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/repository/ColaboradorRepository.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/repository/EmprestimoRepository.java
+/workspaces/gestao-epi/src/main/java/br/com/epi/repository/EpiRepository.java

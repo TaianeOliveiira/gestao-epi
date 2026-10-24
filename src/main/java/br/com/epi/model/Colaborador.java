@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "colaborador")
@@ -50,6 +51,7 @@ public class Colaborador {
     @Column(length = 120)
     private String email;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "data_admissao")
     private LocalDate dataAdmissao;
 

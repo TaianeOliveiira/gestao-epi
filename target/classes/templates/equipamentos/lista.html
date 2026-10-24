@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::title}, ~{::main}, 'equipamentos')}">
+<head>
+    <title>Equipamentos</title>
+</head>
+<body>
+<main>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h3 mb-0">Equipamentos</h1>
+        <a class="btn btn-primary" th:href="@{/equipamentos/novo}">Novo equipamento</a>
+    </div>
+
+    <form class="row g-2 mb-3" method="get" th:action="@{/equipamentos}">
+        <div class="col-sm-8 col-md-6">
+            <input type="search" name="nome" class="form-control" placeholder="Pesquisar por nome"
+                   th:value="${nome}">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-primary" type="submit">Pesquisar</button>
+            <a class="btn btn-outline-secondary" th:href="@{/equipamentos}" th:if="${!#strings.isEmpty(nome)}">Limpar</a>
+        </div>
+    </form>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>CA</th>
+                    <th>Validade do CA</th>
+                    <th>Estoque</th>
+                    <th>Situação</th>
+                    <th class="text-end">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="e : ${equipamentos}">
+                    <td th:text="${e.nome}"></td>
+                    <td th:text="${e.categoria}"></td>
+                    <td th:text="${e.ca}"></td>
+                    <td th:text="${#temporals.format(e.validadeCa, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${e.quantidadeEstoque}"></td>
+                    <td>
+                        <span class="badge" th:classappend="${e.ativo} ? 'text-bg-success' : 'text-bg-secondary'"
+                              th:text="${e.ativo} ? 'Ativo' : 'Inativo'"></span>
+                    </td>
+                    <td class="text-end text-nowrap">
+                        <a class="btn btn-sm btn-outline-primary" th:href="@{/equipamentos/{id}/editar(id=${e.id})}">Editar</a>
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                data-bs-toggle="modal" data-bs-target="#modalExcluir"
+                                th:attr="data-id=${e.id}, data-nome=${e.nome}">Excluir</button>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(equipamentos)}">
+                    <td colspan="7" class="text-center text-muted py-4">Nenhum equipamento encontrado.</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="tituloModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="tituloModal">Remover equipamento</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    Deseja realmente excluir o equipamento <strong id="nomeExcluir"></strong>?
+                    Esta ação não pode ser desfeita.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form id="formExcluir" method="post">
+                        <button type="submit" class="btn btn-danger">Remover</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        const baseUrl = /*[[@{/equipamentos}]]*/ '/equipamentos';
+        document.getElementById('modalExcluir').addEventListener('show.bs.modal', function (event) {
+            const botao = event.relatedTarget;
+            document.getElementById('nomeExcluir').textContent = botao.getAttribute('data-nome');
+            document.getElementById('formExcluir').action = baseUrl + '/' + botao.getAttribute('data-id') + '/excluir';
+        });
+    </script>
+</main>
+</body>
+</html>
