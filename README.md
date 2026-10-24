@@ -1,4 +1,3 @@
-cat > README.md <<'EOF'
 # Gestão de EPIs
 
 Este projeto é um sistema de gerenciamento de Equipamentos de Proteção Individual (EPIs) pensado para uma empresa de construção civil. A ideia é que o técnico de segurança do trabalho consiga cadastrar colaboradores e equipamentos e controlar o empréstimo dos EPIs para cada colaborador, de forma simples e intuitiva, resolvendo o problema apontado na auditoria interna da empresa, em que os colaboradores esquecem o EPI em casa ou não retiram o equipamento no departamento de Saúde e Segurança do Trabalho.
@@ -77,7 +76,7 @@ O código fica em src/main/java/br/com/epi e segue a divisão em camadas. Na pas
 
 ## Endereços do sistema
 
-A listagem e a pesquisa de colaboradores ficam em /colaboradores, o cadastro em /colaboradores/novo e a edição em /colaboradores/ID/editar, onde ID é o número do registro. Os equipamentos seguem o mesmo padrão, em /equipamentos, /equipamentos/novo e /equipamentos/ID/editar. O controle de EPI fica em /emprestimos, o cadastro de empréstimo em /emprestimos/novo e a atualização do status em /emprestimos/ID/editar. O relatório fica em /relatorios/emprestimos e recebe os filtros colaborador, equipamento e status na própria endereço, por exemplo /relatorios/emprestimos?colaborador=carlos&status=EMPRESTADO. A exclusão é feita por um envio de formulário, que só acontece depois da confirmação na janela de aviso.
+A listagem e a pesquisa de colaboradores ficam em /colaboradores, o cadastro em /colaboradores/novo e a edição em /colaboradores/ID/editar, onde ID é o número do registro. Os equipamentos seguem o mesmo padrão, em /equipamentos, /equipamentos/novo e /equipamentos/ID/editar. O controle de EPI fica em /emprestimos, o cadastro de empréstimo em /emprestimos/novo e a atualização do status em /emprestimos/ID/editar. O relatório fica em /relatorios/emprestimos e recebe os filtros colaborador, equipamento e status no próprio endereço, por exemplo /relatorios/emprestimos?colaborador=carlos&status=EMPRESTADO. A exclusão é feita por um envio de formulário, que só acontece depois da confirmação na janela de aviso.
 
 ## Sobre o uso do Docker
 
