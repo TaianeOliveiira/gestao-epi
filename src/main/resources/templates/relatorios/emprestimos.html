@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::title}, ~{::main}, 'relatorios')}">
+<head>
+    <title>Relatório de empréstimos</title>
+</head>
+<body>
+<main>
+    <h1 class="h3 mb-3">Relatório de empréstimos</h1>
+
+    <form class="card card-body shadow-sm mb-4" method="get" th:action="@{/relatorios/emprestimos}">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-4">
+                <label for="colaborador" class="form-label">Colaborador</label>
+                <input type="text" id="colaborador" name="colaborador" class="form-control"
+                       placeholder="Nome do colaborador" th:value="${colaborador}">
+            </div>
+            <div class="col-md-4">
+                <label for="equipamento" class="form-label">Equipamento</label>
+                <input type="text" id="equipamento" name="equipamento" class="form-control"
+                       placeholder="Nome do equipamento" th:value="${equipamento}">
+            </div>
+            <div class="col-md-4">
+                <label for="status" class="form-label">Status</label>
+                <select id="status" name="status" class="form-select">
+                    <option value="">Todos</option>
+                    <option th:each="s : ${statusOpcoes}" th:value="${s}" th:text="${s.rotulo}"
+                            th:selected="${status != null and status == s}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">Pesquisar</button>
+            <a class="btn btn-outline-secondary" th:href="@{/relatorios/emprestimos}">Limpar</a>
+        </div>
+    </form>
+
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                <tr>
+                    <th>Colaborador</th>
+                    <th>Equipamento</th>
+                    <th>Qtd.</th>
+                    <th>Empréstimo</th>
+                    <th>Prevista</th>
+                    <th>Devolução</th>
+                    <th>Status</th>
+                    <th class="text-end">Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="e : ${emprestimos}">
+                    <td th:text="${e.colaborador.nome}"></td>
+                    <td th:text="${e.epi.nome}"></td>
+                    <td th:text="${e.quantidade}"></td>
+                    <td th:text="${#temporals.format(e.dataEmprestimo, 'dd/MM/yyyy HH:mm')}"></td>
+                    <td th:text="${e.dataPrevistaDevolucao != null} ? ${#temporals.format(e.dataPrevistaDevolucao, 'dd/MM/yyyy HH:mm')} : '-'"></td>
+                    <td th:text="${e.dataDevolucao != null} ? ${#temporals.format(e.dataDevolucao, 'dd/MM/yyyy HH:mm')} : '-'"></td>
+                    <td><span class="badge" th:classappend="${e.status.cor}" th:text="${e.status.rotulo}"></span></td>
+                    <td class="text-end text-nowrap">
+                        <a class="btn btn-sm btn-outline-primary"
+                           th:href="@{/emprestimos/{id}/editar(id=${e.id})}">Editar</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(emprestimos)}">
+                    <td colspan="8" class="text-center text-muted py-4">
+                        Desculpe, mas não encontramos dados correspondentes à sua busca.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -36,7 +36,7 @@
 
         <div class="secao mb-1">Relatórios</div>
         <nav class="nav flex-column mb-3">
-            <span class="nav-link disabled">Controle de EPI</span>
+            <a class="nav-link" th:classappend="${ativo == 'relatorios'} ? 'active'" th:href="@{/relatorios/emprestimos}">Empréstimos</a>
         </nav>
 
         <div class="mt-auto">

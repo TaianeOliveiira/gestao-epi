@@ -96,7 +96,7 @@
             </div>
 
             <div class="col-md-8">
-                <label for="observacao" class="form-label">Observação</label>
+                <label for="observacao" class="form-label">Condição do equipamento no empréstimo</label>
                 <input type="text" id="observacao" class="form-control" th:field="*{observacao}"
                        th:classappend="${#fields.hasErrors('observacao')} ? 'is-invalid'">
                 <div class="invalid-feedback" th:errors="*{observacao}"></div>
