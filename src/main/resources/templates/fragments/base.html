@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:fragment="layout(titulo, conteudo, ativo)">
 <head>
     <meta charset="UTF-8">
@@ -36,19 +37,28 @@
 
         <div class="secao mb-1">Relatórios</div>
         <nav class="nav flex-column mb-3">
-            <a class="nav-link" th:classappend="${ativo == 'relatorios'} ? 'active'" th:href="@{/relatorios/emprestimos}">Empréstimos</a>
+            <a class="nav-link" th:classappend="${ativo == 'relatorios'} ? 'active'"
+               th:href="@{/relatorios/emprestimos}">Empréstimos</a>
         </nav>
 
-        <div class="mt-auto">
-            <button type="button" class="btn btn-outline-light w-100" disabled>Sair</button>
+        <div sec:authorize="hasRole('ADMINISTRADOR')">
+            <div class="secao mb-1">Configurações</div>
+            <nav class="nav flex-column mb-3">
+                <a class="nav-link" th:classappend="${ativo == 'usuarios'} ? 'active'"
+                   th:href="@{/usuarios}">Usuários</a>
+            </nav>
         </div>
+
+        <form class="mt-auto" method="post" th:action="@{/logout}">
+            <button type="submit" class="btn btn-outline-light w-100">Sair</button>
+        </form>
     </aside>
 
     <div class="flex-grow-1">
         <header class="bg-white border-bottom px-4 py-2 d-flex justify-content-end align-items-center gap-2">
             <div class="text-end lh-sm">
-                <div class="fw-semibold">Maria Souza</div>
-                <small class="text-muted">Técnica de Segurança do Trabalho</small>
+                <div class="fw-semibold" th:text="${#authentication.principal.nome}">Usuário</div>
+                <small class="text-muted" th:text="${#authentication.principal.perfil.rotulo}">Perfil</small>
             </div>
             <img th:src="@{/img/usuario.svg}" alt="Foto do usuário" class="rounded-circle" width="40" height="40">
         </header>

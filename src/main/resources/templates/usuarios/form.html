@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/base :: layout(~{::title}, ~{::main}, 'usuarios')}">
+<head>
+    <title th:text="${edicao} ? 'Editar usuário' : 'Cadastrar usuário'">Usuário</title>
+</head>
+<body>
+<main style="max-width: 760px;">
+    <h1 class="h3 mb-3" th:text="${edicao} ? 'Editar usuário' : 'Cadastrar usuário'">Usuário</h1>
+
+    <form class="card card-body shadow-sm" method="post" novalidate
+          th:action="${edicao} ? @{/usuarios/{id}(id=${form.id})} : @{/usuarios}"
+          th:object="${form}">
+
+        <div class="row g-3">
+            <div class="col-md-8">
+                <label for="nome" class="form-label">Nome *</label>
+                <input type="text" id="nome" class="form-control" th:field="*{nome}"
+                       th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{nome}"></div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="login" class="form-label">Login *</label>
+                <input type="text" id="login" class="form-control" th:field="*{login}"
+                       th:classappend="${#fields.hasErrors('login')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{login}"></div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="perfil" class="form-label">Perfil *</label>
+                <select id="perfil" class="form-select" th:field="*{perfil}"
+                        th:classappend="${#fields.hasErrors('perfil')} ? 'is-invalid'">
+                    <option th:each="p : ${perfis}" th:value="${p}" th:text="${p.rotulo}"></option>
+                </select>
+                <div class="invalid-feedback" th:errors="*{perfil}"></div>
+            </div>
+
+            <div class="col-md-6 d-flex align-items-end">
+                <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" type="checkbox" id="ativo" th:field="*{ativo}">
+                    <label class="form-check-label" for="ativo">Usuário ativo</label>
+                </div>
+            </div>
+            <div class="col-12" th:if="${#fields.hasErrors('ativo')}">
+                <div class="text-danger small" th:errors="*{ativo}"></div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="senha" class="form-label">
+                    <span th:text="${edicao} ? 'Nova senha' : 'Senha *'">Senha *</span>
+                </label>
+                <input type="password" id="senha" name="senha" class="form-control" autocomplete="new-password"
+                       th:classappend="${#fields.hasErrors('senha')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{senha}"></div>
+                <div class="form-text" th:if="${edicao}">Deixe em branco para manter a senha atual.</div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="confirmarSenha" class="form-label">Confirmar senha</label>
+                <input type="password" id="confirmarSenha" name="confirmarSenha" class="form-control"
+                       autocomplete="new-password"
+                       th:classappend="${#fields.hasErrors('confirmarSenha')} ? 'is-invalid'">
+                <div class="invalid-feedback" th:errors="*{confirmarSenha}"></div>
+            </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-primary"
+                    th:text="${edicao} ? 'Salvar alterações' : 'Cadastrar'">Salvar</button>
+            <a class="btn btn-outline-secondary" th:href="@{/usuarios}">Voltar à lista</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>
